@@ -2,9 +2,12 @@ import { use } from 'react';
 import Lottie from 'lottie-react';
 import registerLottie from '../../assets/lotties/register.json'
 import { AuthContext } from '../../contexts/AuthContext/AuthContext';
+import { Link, useNavigate } from 'react-router';
 
 const Register = () => {
     const { createUser } = use(AuthContext);
+    const navigate = useNavigate();
+
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -19,6 +22,7 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 console.log("Create User Result : ", result);
+                navigate('/')
             })
             .catch(error => {
                 console.log("Create User Error : ", error);
@@ -51,7 +55,8 @@ const Register = () => {
                                 <label className="label">Password</label>
                                 <input type="password" name='password' className="input" placeholder="Password" />
                                 <div><a className="link link-hover">Forgot password?</a></div>
-                                <button className="btn btn-neutral mt-4">Login</button>
+                                <div><a className=" italic ">Already have an account? go <Link className=' font-bold text-primary' to={'/signin'}>Login</Link>  </a></div>
+                                <button className="btn btn-neutral mt-4">Submit</button>
                             </form>
                         </div>
                     </div>

@@ -1,13 +1,31 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import React, { use } from 'react';
+import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../contexts/AuthContext/AuthContext';
+import PrivateRoute from '../pages/Routes/PrivateRoute';
 
 const Navbar = () => {
+    const { user, logOut } = use(AuthContext);
+    // console.log("Navbar login user  :  ", user?.email);
 
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/hotjobs'}>Hot Jobs</NavLink></li>
+        {
+            user &&
+            <li><NavLink to={'/myApplications'}>My Applications</NavLink></li>
+        }
         <li><NavLink to={'/about'}>About</NavLink></li>
     </>
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                console.log("SignOut Result :  ", result);
+            })
+            .then(error => {
+                console.log("Signout Error : ", error);
+            })
+    }
 
     return (
         <div>
@@ -30,7 +48,7 @@ const Navbar = () => {
 
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">Carrier Code</a>
+                    <Link to='/' className="btn btn-ghost text-xl">Carrier Code</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -47,9 +65,15 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <NavLink to={'/register'} className="btn">Register</NavLink>
-                    <NavLink to={'/signin'} className="btn">SignIn</NavLink>
-                    <NavLink to={'/logout'} className="btn">LogOut</NavLink>
+                    {user && <>
+                        <p className=' mx-2  text-primary font-extrabold  p-2 '>{user?.email}</p>
+                        <NavLink onClick={handleLogOut} className="btn">LogOut</NavLink>
+
+                    </>}
+                    {!user && <>
+                        <NavLink to={'/register'} className="btn">Register</NavLink>
+                        <NavLink to={'/signin'} className="btn">SignIn</NavLink>
+                    </>}
                 </div>
             </div>
         </div >
