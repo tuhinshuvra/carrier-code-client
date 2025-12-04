@@ -3,11 +3,14 @@ import useAuth from '../hooks/useAuth';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+
+
+
 const JobApply = () => {
     const { id: jobId } = useParams();
     console.log("Job ID ", jobId);
 
-    const user = useAuth()
+    const { user } = useAuth()
 
     console.log("Job and user Info : ", jobId, user);
 

@@ -9,12 +9,12 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/hotjobs'}>Hot Jobs</NavLink></li>
+        {/* <li><NavLink to={'/jobs'}>Hot Jobs</NavLink></li> */}
         {
             user &&
             <li><NavLink to={'/myApplications'}>My Applications</NavLink></li>
         }
-        <li><NavLink to={'/about'}>About</NavLink></li>
+        {/* <li><NavLink to={'/about'}>About</NavLink></li> */}
     </>
 
     const handleLogOut = () => {

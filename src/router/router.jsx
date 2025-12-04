@@ -10,6 +10,7 @@ import JobDetails from '../pages/jobDetails/JobDetails';
 import PrivateRoute from '../pages/Routes/PrivateRoute';
 import JobApply from '../pages/JobApply/JobApply';
 import MyApplications from '../pages/myApplications/MyApplications';
+import About from '../pages/about/About';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home
+      },
+      {
+        path: '/about',
+        Component: About
       },
       {
         path: '/signin',
