@@ -9,12 +9,14 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        {/* <li><NavLink to={'/jobs'}>Hot Jobs</NavLink></li> */}
         {
             user &&
             <li><NavLink to={'/myApplications'}>My Applications</NavLink></li>
         }
-        {/* <li><NavLink to={'/about'}>About</NavLink></li> */}
+        {
+            user &&
+            <li><NavLink to={'/addJob'}>Add Job</NavLink></li>
+        }
     </>
 
     const handleLogOut = () => {
@@ -38,30 +40,14 @@ const Navbar = () => {
                         <ul
                             tabIndex="-1"
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    {links}
-                                </ul>
-                            </li>
-
+                            {links}
                         </ul>
                     </div>
                     <Link to='/' className="btn btn-ghost text-xl">Carrier Code</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2 bg-base-100 w-40 z-1">
-                                    {links}
-                                </ul>
-                            </details>
-                        </li>
-
+                    <ul className="menu menu-horizontal px-1 font-extrabold text-primary active:underline ">
+                        {links}
                     </ul>
                 </div>
                 <div className="navbar-end">
