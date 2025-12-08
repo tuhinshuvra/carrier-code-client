@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 import { createBrowserRouter } from "react-router";
 import RootLayout from '../layoutes/RootLayoute';
 import Home from '../pages/Home/Home';
@@ -12,6 +9,8 @@ import JobApply from '../pages/JobApply/JobApply';
 import MyApplications from '../pages/myApplications/MyApplications';
 import About from '../pages/about/About';
 import AddJob from '../pages/addJob/AddJob';
+import MyPostedJobs from "../pages/myPostedJobs/MyPostedJobs";
+import ViewApplications from "../pages/viewApplications/ViewApplications";
 
 const router = createBrowserRouter([
   {
@@ -23,25 +22,30 @@ const router = createBrowserRouter([
         Component: Home
       },
       {
-        path: '/about',
+        path: 'about',
         Component: About
       },
       {
-        path: '/signin',
+        path: 'signin',
         Component: Signin
       },
       {
-        path: '/register',
+        path: 'register',
         Component: Register
       },
       {
-        path: '/addJob',
+        path: 'addJob',
         element: <PrivateRoute> <AddJob></AddJob> </PrivateRoute>
       },
       {
-        path: '/jobs/:id',
+        path: 'jobs/:id',
         loader: ({ params }) => fetch(`http://localhost:5000/jobs/${params.id}`),
         Component: JobDetails
+      },
+      {
+        path: 'myPostedJobs',
+        loader: ({ params }) => fetch(`http://localhost:5000/jobs?email=${params.email}`),
+        element: <PrivateRoute><MyPostedJobs></MyPostedJobs> </PrivateRoute>
       },
       {
         path: 'jobApply/:id',
@@ -49,7 +53,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute><JobApply></JobApply> </PrivateRoute>
       },
       {
-        path: '/myApplications',
+        path: 'applications/:jobId',
+        loader: ({ params }) => fetch(`http://localhost:5000/applications/job/${params.jobId}`),
+        element: <PrivateRoute><ViewApplications></ViewApplications> </PrivateRoute>
+      },
+      {
+        path: 'myApplications',
         element: <PrivateRoute><MyApplications></MyApplications> </PrivateRoute>
       }
     ]
