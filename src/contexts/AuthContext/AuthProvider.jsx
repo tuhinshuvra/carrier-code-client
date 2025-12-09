@@ -9,6 +9,7 @@ import {
     signInWithPopup,
     signOut
 } from 'firebase/auth';
+import axios from 'axios';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -32,7 +33,18 @@ const AuthProvider = ({ children }) => {
             // if (user) {
             setUser(currentUser);
             setLoading(false);
-            console.log("onAuthStateChanged : ", currentUser);
+            if (currentUser?.email) {
+                const userData = { email: currentUser.email };
+                axios.post('http://localhost:5000/jwt', userData)
+                    .then(res => {
+                        console.log("Token by JWT : ", res.data);
+                        const token = res.data.token;
+                        localStorage.setItem('token', token);
+                    })
+            }
+
+
+            // console.log("onAuthStateChanged : ", currentUser);
             // }
         })
         return () => {
